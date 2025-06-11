@@ -4,15 +4,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+
 import { InputWithLabel } from "@/components/inputs/InputWithLabel";
 import { TextAreaWithLabel } from "@/components/inputs/TextAreaWithLabel";
+import { SelectWithLabel } from "@/components/inputs/SelectWithLabel";
 
 import {
   insertCustomerSchema,
   type insertCustomerSchemaType,
   type selectCustomerSchemaType,
 } from "@/zod-schemas/customer";
-import { SelectWithLabel } from "@/components/inputs/SelectWithLabel";
+import { statesArray } from "@/constants/statesArray";
 
 type Props = {
   customer?: selectCustomerSchemaType;
@@ -67,6 +69,18 @@ export default function CustomerForm({ customer }: Props) {
               nameInSchema="lastName"
             />
             <InputWithLabel<insertCustomerSchemaType>
+              fieldTitle="Email"
+              nameInSchema="email"
+            />
+            <InputWithLabel<insertCustomerSchemaType>
+              fieldTitle="Phone"
+              nameInSchema="phone"
+            />
+          </div>
+
+          {/* Right Form Column*/}
+          <div className="flex flex-col gap-4 w-full max-w-xs">
+            <InputWithLabel<insertCustomerSchemaType>
               fieldTitle="Address 1"
               nameInSchema="address1"
             />
@@ -79,23 +93,16 @@ export default function CustomerForm({ customer }: Props) {
               fieldTitle="City"
               nameInSchema="city"
             />
-          </div>
-
-          {/* Right Form Column*/}
-          <div className="flex flex-col gap-4 w-full max-w-xs">
+            <SelectWithLabel<insertCustomerSchemaType>
+              fieldTitle="State"
+              nameInSchema="state"
+              data={statesArray}
+            />
             <InputWithLabel<insertCustomerSchemaType>
               fieldTitle="Zip Code"
               nameInSchema="zip"
             />
-            <SelectWithLabel fieldTitle="State" nameInSchema="state" />
-            <InputWithLabel<insertCustomerSchemaType>
-              fieldTitle="Email"
-              nameInSchema="email"
-            />
-            <InputWithLabel<insertCustomerSchemaType>
-              fieldTitle="Phone"
-              nameInSchema="phone"
-            />
+
             <TextAreaWithLabel<insertCustomerSchemaType>
               fieldTitle="Notes"
               nameInSchema="notes"

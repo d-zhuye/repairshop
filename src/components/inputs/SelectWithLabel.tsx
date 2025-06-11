@@ -15,26 +15,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { statesArray } from "@/constants/statesArray";
+
+type DataObj = {
+  id: string;
+  description: string;
+};
 
 type Props<S> = {
   fieldTitle: string;
   nameInSchema: keyof S & string;
+  data: DataObj[];
   className?: string;
 };
 
 export function SelectWithLabel<S>({
   fieldTitle,
   nameInSchema,
+  data,
   className,
   ...props
 }: Props<S>) {
   const form = useFormContext();
 
-  const stateOptions = statesArray.map((state) => {
+  const options = data.map((item) => {
     return (
-      <SelectItem key={state.id} value={state.id}>
-        {state.description}
+      <SelectItem key={`${nameInSchema}_${item.id}`} value={item.id}>
+        {item.description}
       </SelectItem>
     );
   });
@@ -47,14 +53,15 @@ export function SelectWithLabel<S>({
         <FormItem>
           <FormLabel htmlFor={nameInSchema}>{fieldTitle}</FormLabel>
           <FormControl>
-            <Select>
-              <SelectTrigger>
+            <Select {...field} onValueChange={field.onChange}>
+              <SelectTrigger id={nameInSchema} className="w-full max-w-xs">
                 <SelectValue placeholder="State" />
               </SelectTrigger>
 
-              <SelectContent>{stateOptions}</SelectContent>
+              <SelectContent>{options}</SelectContent>
             </Select>
           </FormControl>
+          <FormMessage />
         </FormItem>
       )}
     />
