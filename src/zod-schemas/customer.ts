@@ -10,13 +10,15 @@ export const insertCustomerSchema = createInsertSchema(customers, {
   }),
   city: z.string().min(1, { error: "City is required" }),
   state: z.string().length(2, {
-    error: "Must be in two-letter format. Example: CA, NY, FL.",
+    error: "Must be in two-letter format. Example: CA, NY, FL",
   }),
   email: z.email("Email address is required."),
   zip: z.string().regex(/^\d{5}(-\d{4})?$/, {
     error: "Invalid zip code. Use format 12345 or 12345-7890",
   }),
-  phone: z.e164(),
+  phone: z.string().regex(/^\d{3}-\d{3}-\d{4}$/, {
+    error: "Phone number must be in format 555-555-5555",
+  }),
 });
 
 export const selectCustomerSchema = createSelectSchema(customers);
