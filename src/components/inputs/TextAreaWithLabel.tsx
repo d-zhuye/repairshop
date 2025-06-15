@@ -37,7 +37,8 @@ export function TextAreaWithLabel<S>({
           <FormControl>
             <Textarea
               id={nameInSchema}
-              className={className}
+              className={`disabled:text-blue-500 dark:disabled:text-yellow-400
+                disabled:opacity-75 ${className}`}
               placeholder="Type customer notes here"
               {...props}
               {...field}

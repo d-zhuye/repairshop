@@ -54,8 +54,11 @@ export function SelectWithLabel<S>({
           <FormLabel htmlFor={nameInSchema}>{fieldTitle}</FormLabel>
           <FormControl>
             <Select {...field} onValueChange={field.onChange}>
-              <SelectTrigger id={nameInSchema} className="w-full max-w-xs">
-                <SelectValue placeholder="State" />
+              <SelectTrigger
+                id={nameInSchema}
+                className={`w-full max-w-xs ${className}`}
+              >
+                <SelectValue placeholder="Select" />
               </SelectTrigger>
 
               <SelectContent>{options}</SelectContent>
